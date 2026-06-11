@@ -35,28 +35,16 @@ export function ProfileClient() {
     if (!file.type.startsWith('image/')) { toast.error('Solo imágenes'); return; }
     setUploading(true);
     try {
-      // Get presigned URL
-      const presRes = await fetch('/api/upload/presigned', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fileName: file.name, contentType: file.type, isPublic: true }),
-      });
-      const { uploadUrl, cloud_storage_path } = await presRes.json();
-      // Upload to S3
-      const headers: Record<string, string> = { 'Content-Type': file.type };
-      // Check if content-disposition is in signed headers
-      if (uploadUrl.includes('content-disposition')) {
-        headers['Content-Disposition'] = 'attachment';
-      }
-      const upRes = await fetch(uploadUrl, { method: 'PUT', headers, body: file });
+      const formData = new FormData();
+      formData.append('file', file);
+      const upRes = await fetch('/api/upload/presigned', { method: 'POST', body: formData });
       if (!upRes.ok) throw new Error('Upload failed');
-      // Save to profile
+      const { url } = await upRes.json();
       await fetch('/api/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ avatarCloudPath: cloud_storage_path }),
+        body: JSON.stringify({ avatarUrl: url }),
       });
-      // Refresh
       const prof = await fetch('/api/profile').then(r => r.json());
       setAvatarUrl(prof.avatarUrl);
       toast.success('Foto actualizada');
