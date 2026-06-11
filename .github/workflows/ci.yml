@@ -21,9 +21,14 @@ jobs:
 
       - name: Ensure home directory exists
         run: |
+          echo "user=$(whoami) id=$(id)"
+          echo "HOME=$HOME"
           REAL_HOME=$(getent passwd "$(whoami)" | cut -d: -f6)
+          echo "REAL_HOME=$REAL_HOME"
           sudo mkdir -p "$REAL_HOME"
           sudo chown "$(id -u):$(id -g)" "$REAL_HOME"
+          ls -la "$(dirname "$REAL_HOME")" | grep "$(basename "$REAL_HOME")" || true
+          ls -la "$REAL_HOME" || true
 
       - name: Install dependencies
         working-directory: nextjs_space
