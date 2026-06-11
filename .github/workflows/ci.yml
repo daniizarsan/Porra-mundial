@@ -26,6 +26,12 @@ jobs:
           cp ../docker/yarn.lock.docker yarn.lock
           yarn install --frozen-lockfile
 
+      - name: Generate Prisma client
+        working-directory: nextjs_space
+        env:
+          DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
+        run: yarn prisma generate
+
       - name: Run type check
         working-directory: nextjs_space
         run: yarn tsc --noEmit
