@@ -19,6 +19,12 @@ jobs:
       - name: Enable Yarn 4
         run: corepack enable && corepack prepare yarn@4.13.0 --activate
 
+      - name: Ensure home directory exists
+        run: |
+          REAL_HOME=$(getent passwd "$(whoami)" | cut -d: -f6)
+          sudo mkdir -p "$REAL_HOME"
+          sudo chown "$(id -u):$(id -g)" "$REAL_HOME"
+
       - name: Install dependencies
         working-directory: nextjs_space
         run: |
@@ -30,9 +36,7 @@ jobs:
         working-directory: nextjs_space
         env:
           DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
-        run: |
-          sudo mkdir -p "$HOME" && sudo chown "$(id -u):$(id -g)" "$HOME"
-          yarn prisma generate
+        run: yarn prisma generate
 
       - name: Run type check
         working-directory: nextjs_space
