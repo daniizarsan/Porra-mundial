@@ -1,0 +1,31 @@
+{
+  "groups": {
+    "A": ["Mexico", "South Africa", "South Korea", "Czech Republic"],
+    "B": ["Canada", "Bosnia and Herzegovina", "Qatar", "Switzerland"],
+    "C": ["Brazil", "Morocco", "Haiti", "Scotland"],
+    "D": ["USA", "Paraguay", "Australia", "Turkey"],
+    "E": ["Germany", "Curaçao", "Ivory Coast", "Ecuador"],
+    "F": ["Netherlands", "Japan", "Sweden", "Tunisia"],
+    "G": ["Belgium", "Egypt", "Iran", "New Zealand"],
+    "H": ["Spain", "Cape Verde", "Saudi Arabia", "Uruguay"],
+    "I": ["France", "Senegal", "Iraq", "Norway"],
+    "J": ["Argentina", "Algeria", "Austria", "Jordan"],
+    "K": ["Portugal", "DR Congo", "Uzbekistan", "Colombia"],
+    "L": ["England", "Croatia", "Ghana", "Panama"]
+  },
+  "start_date": "2026-06-11",
+  "key_dates": {
+    "group_stage_start": "2026-06-11",
+    "group_stage_end": "2026-06-27",
+    "round_of_32_start": "2026-06-28",
+    "round_of_32_end": "2026-07-03",
+    "round_of_16_start": "2026-07-04",
+    "round_of_16_end": "2026-07-07",
+    "quarter_finals_start": "2026-07-09",
+    "quarter_finals_end": "2026-07-11",
+    "semi_finals_start": "2026-07-14",
+    "semi_finals_end": "2026-07-15",
+    "third_place_match": "2026-07-18",
+    "final": "2026-07-19"
+  }
+}

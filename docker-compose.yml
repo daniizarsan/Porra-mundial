@@ -1,0 +1,41 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: porra
+      POSTGRES_PASSWORD: porra
+      POSTGRES_DB: porra
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - '5432:5432'
+    volumes:
+      - porra_db:/var/lib/postgresql/data
+      # Carga el dump SQL la primera vez que se inicializa la BD (volumen vacío).
+      # Si el volumen ya existe, este paso se omite automáticamente.
+      - ./docker/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U porra']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://porra:porra@db:5432/porra?schema=public
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: cambia-este-secreto-en-produccion
+      NODE_ENV: production
+    ports:
+      - '3000:3000'
+
+volumes:
+  porra_db:
