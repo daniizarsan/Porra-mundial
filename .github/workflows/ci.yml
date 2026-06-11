@@ -30,6 +30,7 @@ jobs:
         working-directory: nextjs_space
         env:
           DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
+          HOME: /tmp
         run: yarn prisma generate
 
       - name: Run type check
@@ -58,6 +59,8 @@ jobs:
 
       - name: Run lint
         working-directory: nextjs_space
+        env:
+          ESLINT_USE_FLAT_CONFIG: 'false'
         run: yarn lint
 
   docker-build:
