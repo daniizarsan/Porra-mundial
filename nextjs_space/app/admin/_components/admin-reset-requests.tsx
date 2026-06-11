@@ -85,7 +85,7 @@ export function AdminResetRequests() {
                   </span>
                 </div>
               </div>
-              {r.message && <p className="text-sm text-muted-foreground italic">"{r.message}"</p>}
+              {r.message && <p className="text-sm text-muted-foreground italic">&ldquo;{r.message}&rdquo;</p>}
               <div className="flex items-center gap-2">
                 <Input
                   placeholder="Nueva contraseña (mín. 6 chars)"
