@@ -40,13 +40,13 @@ export function ProfileClient() {
       const upRes = await fetch('/api/upload/presigned', { method: 'POST', body: formData });
       if (!upRes.ok) throw new Error('Upload failed');
       const { url } = await upRes.json();
-      await fetch('/api/profile', {
+      const saveRes = await fetch('/api/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ avatarUrl: url }),
       });
-      const prof = await fetch('/api/profile').then(r => r.json());
-      setAvatarUrl(prof.avatarUrl);
+      if (!saveRes.ok) throw new Error('Profile update failed');
+      setAvatarUrl(url);
       toast.success('Foto actualizada');
     } catch {
       toast.error('Error al subir la foto');
