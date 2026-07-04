@@ -79,6 +79,7 @@ export function LeaderboardClient() {
         <div>
           <h1 className="font-display text-3xl font-bold tracking-tight mb-2">Clasificación</h1>
           <p className="text-muted-foreground">Haz clic en cualquier jugador para ver el desglose de sus puntos</p>
+          <p className="mt-2 text-xs text-muted-foreground/60 italic">† Le debéis pleitesía al generoso DON Enrique y deberíais darle todo el dinero de los premios</p>
         </div>
 
         <ScoringInfo />
